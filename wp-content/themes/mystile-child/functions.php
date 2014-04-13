@@ -92,4 +92,23 @@ function taxonomies_box() {
 
 add_action( 'init', 'taxonomies_box', 0 );
 
+function box_price_box() {
+    add_meta_box(
+        'box_price_box',
+        __( 'Box Price', 'myplugin_textdomain' ),
+        'box_price_box_content',
+        'box',
+        'side',
+        'high'
+    );
+}
+
+function box_price_box_content( $post ) {
+    wp_nonce_field( plugin_basename( __FILE__ ), 'box_price_box_content_nonce' );
+    echo '<label for="box_price"></label>';
+    echo '<input type="text" id="box_price" name="box_price" placeholder="enter a price" />';
+}
+
+add_action( 'add_meta_boxes', 'box_price_box' );
+
 ?>
