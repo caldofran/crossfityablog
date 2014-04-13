@@ -69,4 +69,27 @@ function box_contextual_help( $contextual_help, $screen_id, $screen ) {
 
 add_action( 'contextual_help', 'box_contextual_help', 10, 3 );
 
+function taxonomies_box() {
+    $labels = array(
+        'name'              => _x( 'City', 'taxonomy general name' ),
+        'singular_name'     => _x( 'City', 'taxonomy singular name' ),
+        'search_items'      => __( 'Search Cities' ),
+        'all_items'         => __( 'All Cities' ),
+        'parent_item'       => __( 'Parent City' ),
+        'parent_item_colon' => __( 'Parent City' ),
+        'edit_item'         => __( 'Edit City' ),
+        'update_item'       => __( 'Update City' ),
+        'add_new_item'      => __( 'Add New City' ),
+        'new_item_name'     => __( 'New City' ),
+        'menu_name'         => __( 'Cities' ),
+    );
+    $args = array(
+        'labels' => $labels,
+        'hierarchical' => true,
+    );
+    register_taxonomy( 'city', 'box', $args );
+}
+
+add_action( 'init', 'taxonomies_box', 0 );
+
 ?>
