@@ -111,4 +111,25 @@ function box_price_box_content( $post ) {
 
 add_action( 'add_meta_boxes', 'box_price_box' );
 
+function box_price_box_save( $post_id ) {
+
+    if ( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE )
+        return;
+
+    if ( !wp_verify_nonce( $_POST['box_price_box_content_nonce'], plugin_basename( __FILE__ ) ) )
+        return;
+
+    if ( 'page' == $_POST['post_type'] ) {
+        if ( !current_user_can( 'edit_page', $post_id ) )
+            return;
+    } else {
+        if ( !current_user_can( 'edit_post', $post_id ) )
+            return;
+    }
+    $box_price = $_POST['box_price'];
+    update_post_meta( $post_id, 'box_price', $box_price );
+}
+
+add_action( 'save_post', 'box_price_box_save' );
+
 ?>
