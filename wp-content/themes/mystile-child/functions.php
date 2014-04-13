@@ -51,4 +51,22 @@ function box_updated_messages( $messages ) {
 
 add_filter( 'post_updated_messages', 'box_updated_messages' );
 
+function box_contextual_help( $contextual_help, $screen_id, $screen ) {
+    if ( 'box' == $screen->id ) {
+
+        $contextual_help = '<h2>Boxes</h2>
+		<p>Boxes show the details of the items that we promote on the website. You can see a list of them on this page in reverse chronological order - the latest one we added is first.</p>
+		<p>You can view/edit the details of each box by clicking on its name, or you can perform bulk actions using the dropdown menu and selecting multiple items.</p>';
+
+    } elseif ( 'edit-box' == $screen->id ) {
+
+        $contextual_help = '<h2>Editing boxes</h2>
+		<p>This page allows you to view/modify box details. Please make sure to fill out the available boxes with the appropriate details (box image, price, contact info) and <strong>not</strong> add these details to the box description.</p>';
+
+    }
+    return $contextual_help;
+}
+
+add_action( 'contextual_help', 'box_contextual_help', 10, 3 );
+
 ?>
